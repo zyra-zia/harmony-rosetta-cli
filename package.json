@@ -1,0 +1,19 @@
+{
+  "name": "harmony",
+  "bin": {
+    "harmony": "./bin/index.js"
+  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Zyra Zia",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "yargs": "^16.2.0"
+  }
+}
