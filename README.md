@@ -6,7 +6,6 @@ A nodejs cli for the harmony rosetta endpoints
 
     git clone https://github.com/zyra-zia/harmony-rosetta-cli
     npm install
-    npm link
 
 ## Usage
 
