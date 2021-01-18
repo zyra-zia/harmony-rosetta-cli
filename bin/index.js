@@ -53,22 +53,14 @@ const options = yargs
       })
     },
     data.getMempoolTransaction)
-    .command('transferTokens <privateKey> <amount> <recipient>', 'Transfer ONE tokens to recipient address',
+    .command('getPublicAddress <publicKey>', 'Gets the account identifier associated with this public key',
     (yargs) => {
-      yargs.positional('privateKey', {
-        describe: 'Private Key',
-        type: 'string'
-      })
-      .positional('amount', {
-        describe: 'Amount of ONE tokens to transfer',
-        type: 'number'
-      })
-      .positional('recipient', {
-        describe: 'Address of recipient',
+      yargs.positional('publicKey', {
+        describe: 'Public Key',
         type: 'string'
       })
     },
-    construction.transferTokens)
+    construction.getPublicAddress)
   .option("e", { alias: "endpoint", describe: "Endpoint node e.g. https://rosetta.s0.t.hmny.io ", type: "string", default: "https://rosetta.s0.t.hmny.io" })
   .option("j", { alias: "json", describe: "Outputs complete JSON response from server", type: "boolean" })
   .showHelpOnFail(true)

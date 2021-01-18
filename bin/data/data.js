@@ -1,49 +1,5 @@
 const axios = require("axios");
-
-function findNetwork(endpoint) {
-    if (endpoint.indexOf("t.hmny") > 0) {
-        return "Mainnet";
-    }
-    else {
-        return "Testnet";
-    }
-}
-
-function findShard(endpoint) {
-    if (endpoint.indexOf("s0") > 0) {
-        return "0";
-    }
-    else if (endpoint.indexOf("s1") > 0) {
-        return "1";
-    }
-    else if (endpoint.indexOf("s2") > 0) {
-        return "2";
-    }
-    else {
-        return "3";
-    }
-}
-
-function getNetworkData(endpoint) {
-    let network = findNetwork(endpoint);
-    let shard = findShard(endpoint);
-    const isBeacon = (shard === "0");
-
-    const data = {
-        "network_identifier": {
-            "blockchain": "Harmony",
-            "network": network,
-            "sub_network_identifier": {
-                "network": "shard " + shard,
-                "metadata": {
-                    "is_beacon": isBeacon
-                }
-            }
-        },
-        "metadata": {}
-    }
-    return data;
-}
+const utils = require("../utils/utils.js");
 
 module.exports = {
 
@@ -88,7 +44,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/network/options";
 
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
 
         axios.post(url, data, { headers: { Accept: "application/json" } })
             .then(res => {
@@ -113,7 +69,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/network/status";
 
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
 
         axios.post(url, data, { headers: { Accept: "application/json" } })
             .then(res => {
@@ -134,7 +90,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/account/balance";
 
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
         data.account_identifier = {
             "address": options.address
         }
@@ -169,7 +125,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/block";
 
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
 
         if (isNaN(options.blockIdentifier)) {
             data.block_identifier = {
@@ -214,14 +170,14 @@ module.exports = {
         let url = options.endpoint;
         url += "/block/transaction";
         
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
         data.transaction_identifier = {
                 "hash": options.txHash
             }
         data.block_identifier = {
                 "hash": options.blockHash
             }
-
+        
         axios.post(url, data, { headers: { Accept: "application/json" } })
             .then(res => {
                 if (options.json) {
@@ -255,7 +211,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/mempool";
 
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
        
         axios.post(url, data, { headers: { Accept: "application/json" } })
             .then(res => {
@@ -280,7 +236,7 @@ module.exports = {
         let url = options.endpoint;
         url += "/mempool/transaction";
         
-        const data = getNetworkData(options.endpoint);
+        const data = utils.getNetworkData(options.endpoint);
         data.transaction_identifier = {
                 "hash": options.txIdentifier
             }
